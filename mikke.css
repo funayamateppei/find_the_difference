@@ -1,0 +1,93 @@
+* {
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+.top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 30px;
+  background-color: #d3a760;
+  color: #95681f
+}
+
+.top h1 {
+  font-size: 50px;
+}
+
+.timer {
+  font-size: 24px;
+}
+
+.startBtn {
+  height: 80px;
+}
+
+.start {
+  width: 200px;
+  height: 60px;
+  margin: 10px;
+  border-radius: 4px;
+  background-color: white;
+  box-shadow: 0 4px gray;
+  transition: .3s;
+  cursor: pointer;
+}
+
+.start:hover {
+  opacity: .9;
+}
+
+.start:active {
+  box-shadow: none;
+  transform: translateY(4px);
+  transition: .3s;
+}
+
+.game {
+  width: 500px;
+  height: 499px;
+  margin: 15px auto;
+  background-color: rgb(233, 209, 124);
+  border-radius: 3px;
+}
+
+.startTop {
+  text-align: center;
+  line-height: 500px;
+  color: black;
+}
+
+.boxes {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+span {
+  display: none;
+  text-align: center;
+  border: 2px solid rgb(233, 209, 124);
+  border-radius: 3px;
+  background-color: #fff;
+  cursor: pointer;
+  font-size: 1.3em;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+}
+
+/* STARTボタンを押したらクラス付与 */
+.box1 {
+  display: block !important;
+}
+
+/* 文字が入る箱をdesplay:none; 解除 */
+
+.none {
+  opacity: 0;
+}
+
+/* STARTボタンと最初に表示されている文字をnone */
