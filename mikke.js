@@ -3,8 +3,7 @@
 
 
 // 間違い探しの問題と答え
-// asTable[n] = Array(答え, 間違い);
-
+// asTable[n] = Array(答え[0], 間違い[1]);
 const asTable = [];
 asTable[0] = ['め', 'ぬ'];
 asTable[1] = ['ろ', 'る'];
@@ -104,13 +103,17 @@ asTable[98] = ['娘', '狼'];
 asTable[99] = ['鳥', '烏'];
 
 
+// 問題が終わると+1していく → quizCount > 3 になったらresult画面を表示する
+let quizCount = 0;
+
 // カウントアップタイマーのminutes, seconds, milliseconds
 let m = 0;
 let s = 0;
 let ms = 0;
 
-const timer = () => {
-  setInterval(() => {
+// カウントアップタイマー起動の関数
+timer = () => {
+  setTimer = setInterval(() => {
     ms += 1;   // 10ms 毎に 100ms 増やす（表示が2桁だから）
     if (ms > 99) {
       s += 1;
@@ -127,62 +130,94 @@ const timer = () => {
   }, 10);
 }
 
-// 問題を決めるrandomNumber
+// カウントアプタイマー停止の関数
+stopTimer = () => {
+  clearInterval(setTimer);
+}
+
+// 0~99のランダム用のmin max
 const min = 0;
 const max = 99;
-const quizNumber = Math.floor(Math.random() * (max - min + 1) - min);
 
-// 間違いを配置するrandomNumber
-const differentNumber = Math.floor(Math.random() * (max - min + 1) - min);
-
-
-// 問題が終わると+1していく → quizNumber > 3 になったらresult画面を表示する
-let quizcount = 0;
-
-
-// spanタグにnumber0~99までの連番でclass:number(連番)をつける
-// 作ったけど使わなかったから意味なかったww
-const number = () => {
-  $(function () {
-    let i = 0
-    $('.boxes span').each(function () {
-      $(this).addClass('number' + (i++));
-    })
-  })
-}
-
-// .boxにquizNumberの問題[0]を入れる！
-// 上からdifferentNumber番目の.boxには間違いの[1]を入れる
+// buttonにquizNumberの問題[0]を入れる！
+// 上からdifferentNumber番目のbuttonには間違いの[1]を入れる
 const text = () => {
-  $('.box').text(asTable[quizNumber][0]).addClass('notAnswer');
-  $('.box').eq(differentNumber).text(asTable[quizNumber][1]).addClass('answer');
+  // 問題を決めるrandomNumber
+  const quizNumber = Math.floor(Math.random() * (max - min + 1) - min);
+  console.log(quizNumber);
+  // 間違いを配置するrandomNumber
+  const differentNumber = Math.floor(Math.random() * (max - min + 1) - min);
+  console.log(differentNumber);
+  // 全てにclass: notAnswer 付与
+  $('.box').text((asTable[quizNumber])[0]);
+  $('.box').addClass('notAnswer');
+  // n番目のnotAnswer削除 answer付与（上書きでしてしまった）
+  $('.box').eq(differentNumber).text((asTable[quizNumber])[1]);
+  $('.box').eq(differentNumber).removeClass('notAnswer');
+  $('.box').eq(differentNumber).text((asTable[quizNumber])[1]);
+  $('.box').eq(differentNumber).addClass('answer');
 }
 
+// 間違いをクリックしたときに次の問題を表示する
+const nextQuiz = () => {
+  const quizNumber = Math.floor(Math.random() * (max - min + 1) - min);
+  const differentNumber = Math.floor(Math.random() * (max - min + 1) - min);
+  console.log(quizNumber);
+  console.log(differentNumber);
+  text();
+}
 
+// result画面の作成関数
+// const result = () => {
+
+// }
+
+
+
+// --------------- イベント処理 -------------------
 
 // STRATボタンを押した直後に起動
 // カウントアップタイマー起動
 // css適用させて表示を変える
 $('.start').on('click', () => {
   timer();
-  // ↑カウントアップタイマー機能↑
-
   // STARTボタンと最初に表示されている文字を消すcss適用
-  $('.start').toggle('none');
-  $('.startTop').toggle('none');
-
+  $('.start').fadeOut(20);
+  $('.startTop').fadeOut(20);
   // 非表示にしているboxを表示させるためのcssを適用
-  $('.box').toggle('box1');
-
-  // for文でrandomNumberの配列0番目をspanタグに追加していく
-  // randomNumberと
-  console.log(quizNumber);
-  console.log(differentNumber);
+  $('.box').fadeIn();
   text();
+  quizCount++;
 })
 
+// answerをクリックしたら次の問題を表示する
+// quizConnt が 3 になったらresult 画面を表示  if関数で表示
+$('body').on('click', '.answer', () => { // ここめちゃくちゃ時間かかった
+  console.log('true'); // クリックできているかの確認
+  if (quizCount === 3) {
+    $('.box').fadeOut(0);
+    $('.box').removeClass('notAnswer answer')
+    stopTimer();
+    $('.result').fadeIn();
+  } else {
+    $('.box').removeClass('answer notAnswer');
+    nextQuiz();
+    quizCount++;
+  }
+})
 
-
+// もう一度あそぶbutton を押したときに最初の画面に戻る
+// list にタイムを表示して残していく
+$('.again').on('click', () => {
+  $('.start').fadeIn();
+  $('.startTop').fadeIn();
+  $('.result').hide();
+  $('.timer').text('00:00,00');
+  m = 0;
+  s = 0;
+  ms = 0;
+  quizCount = 0;
+})
 
 
 
@@ -234,3 +269,15 @@ $('.start').on('click', () => {
 
 // };
 
+
+
+// spanタグにnumber0~99までの連番でclass:number(連番)をつける
+// 作ったけど使わなかったから意味なかったww
+// const number = () => {
+//   $(function () {
+//     let i = 0
+//     $('.boxes span').each(function () {
+//       $(this).addClass('number' + (i++));
+//     })
+//   })
+// }
