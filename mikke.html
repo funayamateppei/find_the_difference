@@ -18,13 +18,13 @@
     <div class="timer">00:00,00</div>
   </div>
 
-  <div class="result-list">
-    <ul>
-      <li>00:00,00</li>
-    </ul>
-  </div>
 
   <div class="game">
+    <div class="result-list">
+      <ul>
+        <li>00:00,00</li>
+      </ul>
+    </div>
     <p class="startTop">１つだけ違う文字を見つけてください。問題は３問！！</p>
     <p class="boxes">
       <!-- 100個の箱に入れていく -->
@@ -130,27 +130,26 @@
       <button class="box"></button>
     </p>
 
-    <div class="resultBox">
-      <div class="result">
-        <h2>Result</h2>
-        <div class="result-detail">
-          <div class="time">
-            <h3>タイム</h3>
-            <p>00:00,00</p>
+    <div class="resultNone">
+      <div class="resultBox">
+        <div class="result">
+          <h2>Result</h2>
+          <div class="result-detail">
+            <div class="time">
+              <h3>タイム</h3>
+              <p>00:00,00</p>
+            </div>
+            <div class="rank">
+              <h3>ランク</h3>
+              <p>ゴミ</p>
+            </div>
           </div>
-          <div class="rank">
-            <h3>ランク</h3>
-            <p>ゴミ</p>
-          </div>
+          <p class="fire">はい、おまえザコ！</p>
+          <button class="again">もう一度あそぶ</button>
         </div>
-        <p class="fire">はい、おまえザコ！</p>
-        <button class="again">もう一度あそぶ</button>
       </div>
     </div>
   </div>
-
-
-
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="mikke.js"></script>
