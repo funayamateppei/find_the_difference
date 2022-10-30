@@ -36,3 +36,6 @@
 
 - divやspanタグでボタンを作ると後々大変になる内容→buttonで作ろう
   https://qiita.com/xrxoxcxox/items/7d06d4f2d861b022767a
+
+- fadeIn fadeOut メソッドの説明
+  https://www.sejuku.net/blog/57618

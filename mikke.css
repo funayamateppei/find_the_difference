@@ -3,6 +3,9 @@
   font-family: sans-serif;
 }
 
+
+
+/* ------------------- top ---------------------- */
 .top {
   display: flex;
   justify-content: center;
@@ -10,7 +13,7 @@
   flex-direction: column;
   padding: 30px;
   background-color: #d3a760;
-  color: #95681f
+  color: #95681f;
 }
 
 .top h1 {
@@ -35,17 +38,40 @@
   transition: .3s;
   cursor: pointer;
 }
-
 .start:hover {
   opacity: .9;
 }
-
 .start:active {
   box-shadow: none;
   transform: translateY(4px);
   transition: .3s;
 }
 
+
+/* ------------------ result-list --------------------- */
+.result-list {
+  position: absolute;
+  top: 300px;
+  right: 10%;
+}
+.result-list ul {
+  padding: 0;
+  position: relative;
+  width: 200px;
+}
+.result-list ul li {
+  color: black;
+  border-left: solid 8px orange;
+  background: whitesmoke;
+  margin-bottom: 5px;
+  line-height: 1.5;
+  border-radius: 0 15px 15px 0;
+  padding: 0.5em;
+  list-style-type: none !important;
+}
+
+
+/* ------------------ game-area -------------------- */
 .game {
   width: 500px;
   height: 499px;
@@ -79,15 +105,61 @@
   line-height: 50px;
 }
 
-/* STARTボタンを押したらクラス付与 */
-.box1 {
-  display: block !important;
+
+/* ----------------- result ------------------ */
+.resultBox {
+  display: flex;
+  justify-content: center;
+  width: 500px;
+  height: 500px;
+  padding: 50px 0;
 }
-
-/* 文字が入る箱をdesplay:none; 解除 */
-
-.none {
-  opacity: 0;
+.result {
+  display:none;
+  text-align: center;
+  width: 100%;
+  height: 100%;
 }
-
-/* STARTボタンと最初に表示されている文字をnone */
+.result-detail {
+  display: flex;
+  justify-content: space-evenly;
+}
+.time, .rank {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 150px;
+  height: 150px;
+}
+.result h2 {
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+.result h3 {
+  font-size: 24px;
+}
+.result p {
+  font-size: 24px;
+  margin: 10px;
+}
+.fire {
+  color: red;
+}
+.result button {
+  width: 200px;
+  height: 60px;
+  margin: 40px 10px 10px 10px;
+  border-radius: 4px;
+  background-color: white;
+  box-shadow: 0 4px gray;
+  transition: .3s;
+  cursor: pointer;
+}
+.result button:hover {
+  opacity: .9;
+}
+.result button:active {
+  box-shadow: none;
+  transform: translateY(4px);
+  transition: .3s;
+}

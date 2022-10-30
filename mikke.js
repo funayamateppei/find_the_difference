@@ -149,23 +149,29 @@ const text = () => {
   const differentNumber = Math.floor(Math.random() * (max - min + 1) - min);
   console.log(differentNumber);
   // 全てにclass: notAnswer 付与
-  $('.box').text(asTable[quizNumber][0]);
+  $('.box').text((asTable[quizNumber])[0]);
   $('.box').addClass('notAnswer');
-  // n番目のnotAnswer削除 answer付与
-  $('.box').eq(differentNumber).text(asTable[quizNumber][1]);
+  // n番目のnotAnswer削除 answer付与（上書きでしてしまった）
+  $('.box').eq(differentNumber).text((asTable[quizNumber])[1]);
   $('.box').eq(differentNumber).removeClass('notAnswer');
-  $('.box').eq(differentNumber).text(asTable[quizNumber][1]);
+  $('.box').eq(differentNumber).text((asTable[quizNumber])[1]);
   $('.box').eq(differentNumber).addClass('answer');
 }
 
 // 間違いをクリックしたときに次の問題を表示する
-const nextQuiz = () =>  {
+const nextQuiz = () => {
   const quizNumber = Math.floor(Math.random() * (max - min + 1) - min);
   const differentNumber = Math.floor(Math.random() * (max - min + 1) - min);
   console.log(quizNumber);
   console.log(differentNumber);
   text();
 }
+
+// result画面の作成関数
+// const result = () => {
+
+// }
+
 
 
 // --------------- イベント処理 -------------------
@@ -176,27 +182,42 @@ const nextQuiz = () =>  {
 $('.start').on('click', () => {
   timer();
   // STARTボタンと最初に表示されている文字を消すcss適用
-  $('.start').toggle('none');
-  $('.startTop').toggle('none');
+  $('.start').fadeOut(20);
+  $('.startTop').fadeOut(20);
   // 非表示にしているboxを表示させるためのcssを適用
-  $('.box').toggle('box1');
+  $('.box').fadeIn();
   text();
+  quizCount++;
 })
 
 // answerをクリックしたら次の問題を表示する
 // quizConnt が 3 になったらresult 画面を表示  if関数で表示
-$('body').on('click','.answer', () => {
-  console.log('true');
-  if (quizCount === 2) {
-    $('.box').css('display', 'none');
+$('body').on('click', '.answer', () => { // ここめちゃくちゃ時間かかった
+  console.log('true'); // クリックできているかの確認
+  if (quizCount === 3) {
+    $('.box').fadeOut(0);
+    $('.box').removeClass('notAnswer answer')
     stopTimer();
+    $('.result').fadeIn();
+  } else {
+    $('.box').removeClass('answer notAnswer');
+    nextQuiz();
+    quizCount++;
   }
-  $('.box').removeClass('answer notAnswer');
-  nextQuiz();
-  quizCount++
 })
-// めちゃくちゃ時間かかった
 
+// もう一度あそぶbutton を押したときに最初の画面に戻る
+// list にタイムを表示して残していく
+$('.again').on('click', () => {
+  $('.start').fadeIn();
+  $('.startTop').fadeIn();
+  $('.result').hide();
+  $('.timer').text('00:00,00');
+  m = 0;
+  s = 0;
+  ms = 0;
+  quizCount = 0;
+})
 
 
 
