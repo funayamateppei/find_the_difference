@@ -66,7 +66,7 @@
   flex-wrap: wrap;
 }
 
-span {
+.boxes button {
   display: none;
   text-align: center;
   border: 2px solid rgb(233, 209, 124);

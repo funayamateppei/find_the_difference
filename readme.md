@@ -26,3 +26,9 @@
 - n番目の要素を取得する方法  eq(), index(), nth-child()
   https://arts-factory.net/eq_nth-child/
   https://www.flatflag.nir87.com/index-2026
+
+- 静的なクラスはイベントが設定できるが、動的に付与したクラスにはイベントを設定できない。→特殊な書き方で付与することが出来る
+  https://qiita.com/yokke0059/items/13bd0d4f950557032169
+
+- setInterval()を止めたいとき→clearInterval()
+  https://god48.com/javascript-clearinterval 

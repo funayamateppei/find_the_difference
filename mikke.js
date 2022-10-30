@@ -109,7 +109,8 @@ let m = 0;
 let s = 0;
 let ms = 0;
 
-const timer = () => {
+// カウントアップタイマーの関数
+timer = () => {
   setInterval(() => {
     ms += 1;   // 10ms 毎に 100ms 増やす（表示が2桁だから）
     if (ms > 99) {
@@ -127,61 +128,69 @@ const timer = () => {
   }, 10);
 }
 
-// 問題を決めるrandomNumber
+// 0~99のランダム用のmin max
 const min = 0;
 const max = 99;
-const quizNumber = Math.floor(Math.random() * (max - min + 1) - min);
 
-// 間違いを配置するrandomNumber
-const differentNumber = Math.floor(Math.random() * (max - min + 1) - min);
-
-
-// 問題が終わると+1していく → quizNumber > 3 になったらresult画面を表示する
-let quizcount = 0;
+// 問題が終わると+1していく → quizCount > 3 になったらresult画面を表示する
+let quizCount = 0;
 
 
-// spanタグにnumber0~99までの連番でclass:number(連番)をつける
-// 作ったけど使わなかったから意味なかったww
-const number = () => {
-  $(function () {
-    let i = 0
-    $('.boxes span').each(function () {
-      $(this).addClass('number' + (i++));
-    })
-  })
-}
 
 // .boxにquizNumberの問題[0]を入れる！
 // 上からdifferentNumber番目の.boxには間違いの[1]を入れる
 const text = () => {
+  // 問題を決めるrandomNumber
+  const quizNumber = Math.floor(Math.random() * (max - min + 1) - min);
+  console.log(quizNumber);
+  // 間違いを配置するrandomNumber
+  const differentNumber = Math.floor(Math.random() * (max - min + 1) - min);
+  console.log(differentNumber);
+  // 全てにclass: notAnswer 付与
   $('.box').text(asTable[quizNumber][0]).addClass('notAnswer');
+  // n番目のnotAnswer削除 answer付与
+  $('.box').eq(differentNumber).text(asTable[quizNumber][1]).removeClass('notAnswer');
   $('.box').eq(differentNumber).text(asTable[quizNumber][1]).addClass('answer');
 }
 
+// 間違いをクリックしたときに次の問題を表示する
+const nextQuiz = () =>  {
+  const quizNumber = Math.floor(Math.random() * (max - min + 1) - min);
+  const differentNumber = Math.floor(Math.random() * (max - min + 1) - min);
+  console.log(quizNumber);
+  console.log(differentNumber);
+  text();
+}
 
+
+// --------------- イベント処理 -------------------
 
 // STRATボタンを押した直後に起動
 // カウントアップタイマー起動
 // css適用させて表示を変える
 $('.start').on('click', () => {
   timer();
-  // ↑カウントアップタイマー機能↑
-
   // STARTボタンと最初に表示されている文字を消すcss適用
   $('.start').toggle('none');
   $('.startTop').toggle('none');
-
   // 非表示にしているboxを表示させるためのcssを適用
   $('.box').toggle('box1');
-
-  // for文でrandomNumberの配列0番目をspanタグに追加していく
-  // randomNumberと
-  console.log(quizNumber);
-  console.log(differentNumber);
   text();
 })
 
-
+// answerをクリックしたら次の問題を表示する
+// quizConnt が 3 になったらresult 画面を表示  if関数で表示
+$('body').on('click','.answer', () => {
+  console.log('true');
+  if (quizCount >= 2) {
+    $('.box').css('display', 'none');
+    clearInterval(timer());
+  }
+  $('.box').removeClass('answer notAnswer');
+  nextQuiz();
+  quizCount++
+})
+// めちゃくちゃ時間かかった
 
 
 
@@ -234,3 +243,15 @@ $('.start').on('click', () => {
 
 // };
 
+
+
+// spanタグにnumber0~99までの連番でclass:number(連番)をつける
+// 作ったけど使わなかったから意味なかったww
+// const number = () => {
+//   $(function () {
+//     let i = 0
+//     $('.boxes span').each(function () {
+//       $(this).addClass('number' + (i++));
+//     })
+//   })
+// }
