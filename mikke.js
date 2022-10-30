@@ -3,8 +3,7 @@
 
 
 // 間違い探しの問題と答え
-// asTable[n] = Array(答え, 間違い);
-
+// asTable[n] = Array(答え[0], 間違い[1]);
 const asTable = [];
 asTable[0] = ['め', 'ぬ'];
 asTable[1] = ['ろ', 'る'];
@@ -104,14 +103,17 @@ asTable[98] = ['娘', '狼'];
 asTable[99] = ['鳥', '烏'];
 
 
+// 問題が終わると+1していく → quizCount > 3 になったらresult画面を表示する
+let quizCount = 0;
+
 // カウントアップタイマーのminutes, seconds, milliseconds
 let m = 0;
 let s = 0;
 let ms = 0;
 
-// カウントアップタイマーの関数
+// カウントアップタイマー起動の関数
 timer = () => {
-  setInterval(() => {
+  setTimer = setInterval(() => {
     ms += 1;   // 10ms 毎に 100ms 増やす（表示が2桁だから）
     if (ms > 99) {
       s += 1;
@@ -128,17 +130,17 @@ timer = () => {
   }, 10);
 }
 
+// カウントアプタイマー停止の関数
+stopTimer = () => {
+  clearInterval(setTimer);
+}
+
 // 0~99のランダム用のmin max
 const min = 0;
 const max = 99;
 
-// 問題が終わると+1していく → quizCount > 3 になったらresult画面を表示する
-let quizCount = 0;
-
-
-
-// .boxにquizNumberの問題[0]を入れる！
-// 上からdifferentNumber番目の.boxには間違いの[1]を入れる
+// buttonにquizNumberの問題[0]を入れる！
+// 上からdifferentNumber番目のbuttonには間違いの[1]を入れる
 const text = () => {
   // 問題を決めるrandomNumber
   const quizNumber = Math.floor(Math.random() * (max - min + 1) - min);
@@ -147,10 +149,13 @@ const text = () => {
   const differentNumber = Math.floor(Math.random() * (max - min + 1) - min);
   console.log(differentNumber);
   // 全てにclass: notAnswer 付与
-  $('.box').text(asTable[quizNumber][0]).addClass('notAnswer');
+  $('.box').text(asTable[quizNumber][0]);
+  $('.box').addClass('notAnswer');
   // n番目のnotAnswer削除 answer付与
-  $('.box').eq(differentNumber).text(asTable[quizNumber][1]).removeClass('notAnswer');
-  $('.box').eq(differentNumber).text(asTable[quizNumber][1]).addClass('answer');
+  $('.box').eq(differentNumber).text(asTable[quizNumber][1]);
+  $('.box').eq(differentNumber).removeClass('notAnswer');
+  $('.box').eq(differentNumber).text(asTable[quizNumber][1]);
+  $('.box').eq(differentNumber).addClass('answer');
 }
 
 // 間違いをクリックしたときに次の問題を表示する
@@ -182,9 +187,9 @@ $('.start').on('click', () => {
 // quizConnt が 3 になったらresult 画面を表示  if関数で表示
 $('body').on('click','.answer', () => {
   console.log('true');
-  if (quizCount >= 2) {
+  if (quizCount === 2) {
     $('.box').css('display', 'none');
-    clearInterval(timer());
+    stopTimer();
   }
   $('.box').removeClass('answer notAnswer');
   nextQuiz();

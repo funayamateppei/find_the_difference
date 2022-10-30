@@ -32,3 +32,7 @@
 
 - setInterval()を止めたいとき→clearInterval()
   https://god48.com/javascript-clearinterval 
+  https://sites.google.com/site/jqueryjavascript/setintervaltoclearintervalno-shii-fang
+
+- divやspanタグでボタンを作ると後々大変になる内容→buttonで作ろう
+  https://qiita.com/xrxoxcxox/items/7d06d4f2d861b022767a
