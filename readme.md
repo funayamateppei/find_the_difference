@@ -40,3 +40,12 @@
 
 - fadeIn fadeOut メソッドの説明
   - https://www.sejuku.net/blog/57618
+
+- JSONデータの変換
+  - https://www.tam-tam.co.jp/tipsnote/javascript/post5978.html
+
+- 音楽の再生
+  - https://qumeru.com/magazine/377
+
+- 要素の作成 append
+  - https://www.bold.ne.jp/engineer-club/jquery-append#-jQuery
