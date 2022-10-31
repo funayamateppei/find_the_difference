@@ -7,11 +7,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="reset.css">
   <link rel="stylesheet" href="mikke.css">
+  <link rel="shortcut icon" href="crab.jpeg" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
   <title>Mikke!!</title>
 </head>
 
 <body>
-
+  <audio class="audio audio1" src="audio/answer.mp3"></audio>
+  <audio class="audio audio2" src="audio/notAnswer.mp3"></audio>
   <div class="top">
     <h1>仲間はずれを見つけろ！</h1>
     <div class="startBtn"><button class="start">START</button></div>
@@ -22,9 +27,15 @@
   <div class="game">
     <div class="result-list">
       <ul>
-        <li>00:00,00</li>
       </ul>
+      <button>過去の記録を削除</button>
     </div>
+
+    <div class="mute">
+      <button class="fa-solid fa-volume-high"></button>
+      <button class="fa-solid fa-volume-xmark"></button>
+    </div>
+
     <p class="startTop">１つだけ違う文字を見つけてください。問題は３問！！</p>
     <p class="boxes">
       <!-- 100個の箱に入れていく -->
@@ -141,10 +152,9 @@
             </div>
             <div class="rank">
               <h3>ランク</h3>
-              <p>ゴミ</p>
+              <p></p>
             </div>
           </div>
-          <p class="fire">はい、おまえザコ！</p>
           <button class="again">もう一度あそぶ</button>
         </div>
       </div>

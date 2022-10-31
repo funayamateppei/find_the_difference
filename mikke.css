@@ -39,9 +39,11 @@
   transition: .3s;
   cursor: pointer;
 }
+
 .start:hover {
   opacity: .9;
 }
+
 .start:active {
   box-shadow: none;
   transform: translateY(4px);
@@ -55,11 +57,13 @@
   top: 50px;
   right: -180px;
 }
+
 .result-list ul {
   padding: 0;
   position: relative;
   width: 150px;
 }
+
 .result-list ul li {
   color: black;
   border-left: solid 8px orange;
@@ -69,6 +73,47 @@
   border-radius: 0 15px 15px 0;
   padding: 0.5em;
   list-style-type: none !important;
+}
+
+.result-list button {
+  width: 150px;
+  color: black;
+  border: none;
+  border-left: solid 8px orange;
+  box-shadow: 0 4px rgba(255, 166, 0, 0.623);
+  background: whitesmoke;
+  margin-bottom: 5px;
+  line-height: 1.5;
+  border-radius: 0 15px 15px 0;
+  padding: 0.5em;
+  transition: .3s;
+  display: none;
+}
+
+.result-list button:hover {
+  opacity: .8;
+}
+
+.result-list button:active {
+  box-shadow: none;
+  transform: translateY(4px);
+  transition: .3s;
+}
+
+.mute button {
+  font-size: 20px;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  bottom: 0%;
+  left: -50px;
+  border: none;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.mute .fa-volume-xmark {
+  display: none;
 }
 
 
@@ -112,6 +157,7 @@
 .resultNone {
   display: none;
 }
+
 .resultBox {
   display: flex;
   justify-content: center;
@@ -119,36 +165,41 @@
   height: 500px;
   padding: 50px 0;
 }
+
 .result {
   text-align: center;
   width: 100%;
   height: 100%;
 }
+
 .result-detail {
   display: flex;
   justify-content: space-evenly;
 }
-.time, .rank {
+
+.time,
+.rank {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 150px;
+  width: 200px;
   height: 150px;
 }
+
 .result h2 {
   font-size: 40px;
   margin-bottom: 20px;
 }
+
 .result h3 {
   font-size: 24px;
 }
+
 .result p {
   font-size: 24px;
   margin: 10px;
 }
-.fire {
-  color: red;
-}
+
 .result button {
   width: 200px;
   height: 60px;
@@ -159,9 +210,11 @@
   transition: .3s;
   cursor: pointer;
 }
+
 .result button:hover {
   opacity: .9;
 }
+
 .result button:active {
   box-shadow: none;
   transform: translateY(4px);

@@ -98,6 +98,8 @@ asTable[97] = ['姓', '性'];
 asTable[98] = ['娘', '狼'];
 asTable[99] = ['鳥', '烏'];
 
+// タイムを格納する配列
+const array = [];
 
 // 問題が終わると+1していく → quizCount > 3 になったらresult画面を表示する
 let quizCount = 0;
@@ -155,25 +157,27 @@ const text = () => {
 // 間違いをクリックしたときに次の問題を表示する
 const nextQuiz = () => {
   $('.box').removeClass('answer notAnswer');
-  const quizNumber = Math.floor(Math.random() * (max - min + 1) - min);
-  const differentNumber = Math.floor(Math.random() * (max - min + 1) - min);
-  console.log(quizNumber);
-  console.log(differentNumber);
   text();
 }
 
 // result画面の内容作成関数 タイムを表示する ランク分けをして煽り文を入れる
 const result = () => {
   //result 画面にタイムを表示
-  $('.time p').text(`${minutes}: ${seconds}, ${milliSeconds}`); 
-  // ランク分けをして煽り文を表示する if関数を使用
-  // if () {
-
-  // } else if () {
-
-  // } else if () {
-
-  // }
+  $('.time p').text(`${minutes}: ${seconds}, ${milliSeconds}`);
+  // ランク分けをして文を表示する if関数を使用
+  // 2分以上 ゴミ  30秒以上2分未満 普通  30秒以下 きもい
+  if (1 < m) {
+    $('.rank p').text('ゴミ')
+  } else if ((m === 0 && s > 30) || m === 1) {
+    $('.rank p').text('普通')
+  } else if (m === 0 && s <= 30) {
+    $('.rank p').text('はやすぎ、きも')
+  }
+  // 秒数をローカルストレージに保存してリストで表示したい
+  // タイムをarrayという配列にpushする
+  array.push($('.time p').text())
+  // console.log(array); //入っているか確認用
+  localStorage.setItem('time', JSON.stringify(array));
 }
 
 // result 画面表示 関数 漢字のboxをhide()してresult画面を表示させる
@@ -197,10 +201,13 @@ const reset = () => {
   quizCount = 0;
 }
 
-// タイムをローカルストレージに保存していく関数
-// 保存したタイムをリストに表示していく
+
+
+
+
 
 // --------------- イベント処理 -------------------
+
 // STRATボタンを押した直後に起動
 // カウントアップタイマー起動
 // css適用させて表示を変える
@@ -218,7 +225,10 @@ $('.start').on('click', () => {
 // answerをクリックしたら次の問題を表示する
 // quizConnt が 3 になったらresult 画面を表示  if関数で表示
 $('body').on('click', '.answer', () => { // ここめちゃくちゃ時間かかった
-  console.log('true'); // クリックできているかの確認
+  //console.log('true'); // クリックできているかの確認
+  // 音を鳴らす
+  $('.audio1')[0].currentTime = 0;
+  $('.audio1')[0].play();
   if (quizCount === 3) {
     createResult();
   } else {
@@ -227,10 +237,47 @@ $('body').on('click', '.answer', () => { // ここめちゃくちゃ時間かか
   }
 })
 
+// notAnswerをクリックしたら次の問題を表示する
+$('body').on('click', '.notAnswer', () => {
+  $('.audio2')[0].currentTime = 0;
+  $('.audio2')[0].play();
+})
+
+// muteボタンをクリックしたらミュートにする
+$('.mute').on('click', () => {
+  if ($('.audio1')[0].muted && $('.audio2')[0].muted) {
+    $('.audio1')[0].muted = false;
+    $('.audio2')[0].muted = false;
+    $('.fa-volume-high').fadeIn();
+    $('.fa-volume-xmark').fadeOut();
+  } else {
+    $('.audio1')[0].muted = true;
+    $('.audio2')[0].muted = true;
+    $('.fa-volume-high').fadeOut();
+    $('.fa-volume-xmark').fadeIn();
+  }
+})
+
+
 // もう一度あそぶbutton を押したときに最初の画面に戻る
 // list にタイムを表示して残していく
 $('.again').on('click', () => {
+  $('.result-list button').fadeIn();
   reset();
+  // リストを全て削除
+  $('li').remove();
+  // ローカルストレージからデータを出してリストに表示する
+  JSON.parse(localStorage.getItem('time'));
+  array.forEach((value) => {
+    // console.log(value);
+    $('ul').append(`<li>${value}</li>`);
+  })
+})
+
+// 削除ボタンを押したらローカルストレージの中身とリストを削除
+$('.result-list button').on('click', () => {
+  localStorage.removeItem('time');
+  $('li').remove();
 })
 
 
