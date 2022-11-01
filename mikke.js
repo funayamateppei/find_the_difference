@@ -210,10 +210,9 @@ const reset = () => {
 // --------------- イベント処理 -------------------
 // ロードしたときに中身があればリスト表示する
 if (localStorage.getItem('time')) {
-  array.forEach((value) => {
-    array.push(JSON.parse(localStorage.getItem('time')));
-    console.log(value);
-    $('ul').append(`<li>${value}</li>`);
+  let box = JSON.parse(localStorage.getItem('time'));
+  box.forEach((x) => {
+    $('ul').append('<li>' + x + '</li>');
   })
   $('.result-list button').fadeIn();
 }
