@@ -210,8 +210,8 @@ const reset = () => {
 // --------------- イベント処理 -------------------
 // ロードしたときに中身があればリスト表示する
 if (localStorage.getItem('time')) {
-  array.push(JSON.parse(localStorage.getItem('time')));
   array.forEach((value) => {
+    array.push(JSON.parse(localStorage.getItem('time')));
     console.log(value);
     $('ul').append(`<li>${value}</li>`);
   })
