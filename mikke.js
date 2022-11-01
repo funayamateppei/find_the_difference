@@ -98,6 +98,7 @@ asTable[97] = ['姓', '性'];
 asTable[98] = ['娘', '狼'];
 asTable[99] = ['鳥', '烏'];
 
+
 // タイムを格納する配列
 const array = [];
 
@@ -207,6 +208,16 @@ const reset = () => {
 
 
 // --------------- イベント処理 -------------------
+// ロードしたときに中身があればリスト表示する
+if (localStorage.getItem('time')) {
+  array.push(JSON.parse(localStorage.getItem('time')));
+  array.forEach((value) => {
+    console.log(value);
+    $('ul').append(`<li>${value}</li>`);
+  })
+  $('.result-list button').fadeIn();
+}
+
 
 // STRATボタンを押した直後に起動
 // カウントアップタイマー起動
